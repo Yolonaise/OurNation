@@ -21,7 +21,7 @@ public class UserClient extends APIClient {
         clientInterface = super.retrofit.create(IUser.class);
     }
 
-    public void getUserInfoByID(final String id){
+    public void getUserInfoByID(final int id){
         new Thread(new Runnable() {
 
             @Override

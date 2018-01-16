@@ -16,7 +16,7 @@ public class UserInfoRequest {
     private String Email;
     @SerializedName("id")
     @Expose
-    private String Id;
+    private int Id;
 
     public String getUsername() {
         return Username;
@@ -34,15 +34,15 @@ public class UserInfoRequest {
         this.Email = email;
     }
 
-    public String getId() {
+    public int getId() {
         return Id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.Id = id;
     }
 
-    public static UserInfoRequest createInstance(String username, String email, String id){
+    public static UserInfoRequest createInstance(String username, String email, int id){
         UserInfoRequest res = new UserInfoRequest();
 
         res.Username = username;

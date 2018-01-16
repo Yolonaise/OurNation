@@ -2,6 +2,7 @@ package com.example.arnaudschaal.ournation.UIElement;
 
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
+import android.support.design.widget.Snackbar;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.arnaudschaal.ournation.R;
@@ -17,12 +19,12 @@ import com.example.arnaudschaal.ournation.RestClient.Clients.RegistrationClient;
 import com.example.arnaudschaal.ournation.RestClient.Listeners.IClientListener;
 import com.example.arnaudschaal.ournation.RestClient.Models.Interface.IJSONMessage;
 import com.example.arnaudschaal.ournation.RestClient.Models.ResponseModels.RegistrationResponse;
-import com.transitionseverywhere.Fade;
 import com.transitionseverywhere.Recolor;
 import com.transitionseverywhere.Slide;
 import com.transitionseverywhere.TransitionManager;
 import com.transitionseverywhere.TransitionSet;
-import com.transitionseverywhere.extra.Scale;
+
+import static android.widget.Toast.LENGTH_SHORT;
 
 /**
  * Created by arnaud.schaal on 05-01-18.
@@ -39,6 +41,7 @@ public class LoginControl extends LinearLayout{
     private ViewGroup mainContainer;
     private ViewGroup loginContainer;
     private ViewGroup signupContainer;
+    private ViewGroup buttonContainer;
     //region login
     private EditText loginEditText;
     private EditText passwordEditText;
@@ -49,6 +52,7 @@ public class LoginControl extends LinearLayout{
     private EditText signupPasswordEditText;
     private Button signUpButton;
 
+    private TextView loading;
     private Menu currentMenu;
     private Runnable loginEndAction;
     private boolean isRunning;
@@ -90,6 +94,7 @@ public class LoginControl extends LinearLayout{
         mainContainer = (ViewGroup) findViewById(R.id.control_login_main_container);
         loginContainer = (ViewGroup) findViewById(R.id.control_login_container);
         signupContainer = (ViewGroup) findViewById(R.id.control_signup_container);
+        buttonContainer = (ViewGroup) findViewById(R.id.control_login_button_container);
 
         loginEditText = (EditText) findViewById(R.id.control_login_login_editText);
         passwordEditText = (EditText) findViewById(R.id.control_login_password_editText);
@@ -100,6 +105,8 @@ public class LoginControl extends LinearLayout{
         signupPasswordEditText = (EditText) findViewById(R.id.control_signup_password_editText);
         signUpButton = (Button) findViewById(R.id.control_signup_button);
 
+        loading = (TextView) findViewById(R.id.control_login_loading);
+        loading.setVisibility(GONE);
         loginButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -151,21 +158,38 @@ public class LoginControl extends LinearLayout{
                 signupContainer.setVisibility(GONE);
                 loginContainer.setVisibility(VISIBLE);
 
-                if(animate)
-                    TransitionManager.beginDelayedTransition(mainContainer, new Recolor());
+                if(buttonContainer.getVisibility() == VISIBLE){
+                    if(animate)
+                        TransitionManager.beginDelayedTransition(buttonContainer, new Recolor());
+                }
+                else{
+                    if(animate)
+                        TransitionManager.beginDelayedTransition(buttonContainer, new TransitionSet()
+                            .addTransition(new Slide(Gravity.BOTTOM)));
+
+                    buttonContainer.setVisibility(VISIBLE);
+                }
                 loginButton.setBackgroundDrawable(
                         new ColorDrawable(getResources().getColor(R.color.colorPrimaryDark)));
                 signUpButton.setBackgroundDrawable(
                         new ColorDrawable(getResources().getColor(R.color.colorSecondaryDark)));
-
                 currentMenu = Menu.Login;
                 break;
             case SignUp:
                 loginContainer.setVisibility(GONE);
                 signupContainer.setVisibility(VISIBLE);
 
-                if(animate)
-                    TransitionManager.beginDelayedTransition(mainContainer, new Recolor());
+                if(buttonContainer.getVisibility() == VISIBLE){
+                    if(animate)
+                        TransitionManager.beginDelayedTransition(buttonContainer, new Recolor());
+                }
+                else{
+                    if(animate)
+                        TransitionManager.beginDelayedTransition(buttonContainer, new TransitionSet()
+                                .addTransition(new Slide(Gravity.BOTTOM)));
+
+                    buttonContainer.setVisibility(VISIBLE);
+                }
                 loginButton.setBackgroundDrawable(
                         new ColorDrawable(getResources().getColor(R.color.colorSecondaryDark)));
                 signUpButton.setBackgroundDrawable(
@@ -177,16 +201,17 @@ public class LoginControl extends LinearLayout{
     }
 
     private void processLogin(){
+        setButtonClickable(false);
         String username = loginEditText.getText().toString();
         String password = passwordEditText.getText().toString();
 
         if(username.isEmpty()){
-            Toast.makeText(this.getContext(), "Username is empty",  Toast.LENGTH_SHORT).show();
+            displayToast("Username is empty");
             return;
         }
 
         if(password.isEmpty()){
-            Toast.makeText(this.getContext(), "Password is empty",  Toast.LENGTH_SHORT).show();
+            displayToast("Password is empty");
             return;
         }
 
@@ -194,7 +219,6 @@ public class LoginControl extends LinearLayout{
         client.setClientListener(new IClientListener() {
             @Override
             public void onResponseEnd(IJSONMessage response, String method) {
-                show(true);
                 if(response == null)
                     displayToast("We have met an error, try again later.");
                 if(response instanceof RegistrationResponse){
@@ -210,6 +234,7 @@ public class LoginControl extends LinearLayout{
                             break;
                     }
                 }
+                show(true);
             }
 
             @Override
@@ -224,22 +249,24 @@ public class LoginControl extends LinearLayout{
     }
 
     private void processSignup(){
+        setButtonClickable(false);
+
         String username = signupUsernameEditText.getText().toString();
         String password = signupPasswordEditText.getText().toString();
         String email = signupEmailEditText.getText().toString();
 
         if(username.isEmpty()){
-            Toast.makeText(this.getContext(), "Username is empty",  Toast.LENGTH_SHORT).show();
+            displayToast("Username is empty");
             return;
         }
 
         if(password.isEmpty()){
-            Toast.makeText(this.getContext(), "Password is empty",  Toast.LENGTH_SHORT).show();
+            displayToast("Password is empty");
             return;
         }
 
         if(email.isEmpty()){
-            Toast.makeText(this.getContext(), "Email is empty",  Toast.LENGTH_SHORT).show();
+            displayToast("Email is empty");
             return;
         }
 
@@ -247,7 +274,6 @@ public class LoginControl extends LinearLayout{
         client.setClientListener(new IClientListener() {
             @Override
             public void onResponseEnd(IJSONMessage response, String method) {
-                show(true);
                 if(response == null)
                     displayToast("We have met an error, try again later.");
                 if(response instanceof RegistrationResponse){
@@ -263,6 +289,7 @@ public class LoginControl extends LinearLayout{
                             break;
                     }
                 }
+                show(true);
             }
 
             @Override
@@ -280,7 +307,8 @@ public class LoginControl extends LinearLayout{
         post(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(getContext(), text, Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), text, LENGTH_SHORT)
+                        .show();
             }
         });
     }
@@ -299,6 +327,9 @@ public class LoginControl extends LinearLayout{
 
                 if(signupContainer.getVisibility() == VISIBLE)
                     signupContainer.setVisibility(GONE);
+
+                buttonContainer.setVisibility(GONE);
+                loading.setVisibility(VISIBLE);
             }
         });
     }
@@ -308,8 +339,16 @@ public class LoginControl extends LinearLayout{
         post(new Runnable() {
             @Override
             public void run() {
+                loading.setVisibility(GONE);
                 displayMenu(currentMenu, animate);
+                setButtonClickable(true);
+
             }
         });
+    }
+
+    private void setButtonClickable(boolean clickable){
+        loginButton.setClickable(clickable);
+        signUpButton.setClickable(clickable);
     }
 }

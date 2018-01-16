@@ -11,6 +11,7 @@
         android:alpha="0.5"/>
 
     <TextView
+        android:id="@+id/control_login_loading"
         android:text="loading"
         android:textColor="@color/colorPrimaryDarkText"
         android:layout_width="wrap_content"
@@ -100,6 +101,7 @@
             android:inputType="textPassword"/>
     </LinearLayout>
     <FrameLayout
+        android:id="@+id/control_login_button_container"
         android:layout_gravity="bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

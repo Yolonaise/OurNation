@@ -4,6 +4,8 @@ import com.example.arnaudschaal.ournation.BuildConfig;
 import com.example.arnaudschaal.ournation.RestClient.Listeners.IClientListener;
 import com.example.arnaudschaal.ournation.RestClient.Models.Interface.IJSONMessage;
 import com.example.arnaudschaal.ournation.Session.Context;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
 
@@ -41,9 +43,13 @@ public class APIClient {
             }
         });
 
+        Gson gson = new GsonBuilder()
+                .setDateFormat("yyyy-MM-dd HH:mm:ss")
+                .create();
+
         retrofit = new Retrofit.Builder()
                 .baseUrl(url)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(httpClient.build())
                 .build();
 

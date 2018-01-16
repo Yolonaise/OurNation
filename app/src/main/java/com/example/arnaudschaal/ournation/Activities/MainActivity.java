@@ -1,4 +1,4 @@
-package com.example.arnaudschaal.ournation;
+package com.example.arnaudschaal.ournation.Activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 
-import com.example.arnaudschaal.ournation.Activities.DashBoardActivity;
+import com.example.arnaudschaal.ournation.R;
 import com.example.arnaudschaal.ournation.RestClient.Clients.RegistrationClient;
 import com.example.arnaudschaal.ournation.RestClient.Listeners.IClientListener;
 import com.example.arnaudschaal.ournation.RestClient.Models.Interface.IJSONMessage;
@@ -24,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
-
 
         initUserControl();
         initContext();
@@ -43,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initContext(){
-        Context.getInstance().initToken(this);
+        Context.getInstance().initConnection(getBaseContext());
 
         RegistrationClient client = new RegistrationClient();
         client.setClientListener(new IClientListener() {

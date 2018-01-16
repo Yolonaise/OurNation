@@ -21,7 +21,7 @@ public class UserInfoResponse implements IJSONMessage {
     private String email;
     @SerializedName("id")
     @Expose
-    private String id;
+    private int id;
 
     public String getStatus() {
         return status;
@@ -47,11 +47,11 @@ public class UserInfoResponse implements IJSONMessage {
         this.email = email;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 }

@@ -17,5 +17,7 @@
     <color name="white">#fff</color>
     <color name="black">#000</color>>
     <color name="transparent">#00000000</color>
+    <color name="calendarBackground">#66000000</color>
+
 
 </resources>

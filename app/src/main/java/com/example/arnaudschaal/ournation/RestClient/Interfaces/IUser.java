@@ -13,7 +13,7 @@ import retrofit2.http.Path;
 public interface IUser {
 
     @POST("api/User/GetUserInfo/ById/{id}")
-    Call<UserInfoResponse> getUserInfoById(@Path("id") String id);
+    Call<UserInfoResponse> getUserInfoById(@Path("id") int id);
 
     @POST("api/User/GetUserInfo/ByUsername/{username}")
     Call<UserInfoResponse> getUserInfoByUsername(@Path("username}") String username);

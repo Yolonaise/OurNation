@@ -36,4 +36,5 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta4'
     compile "com.andkulikov:transitionseverywhere:1.7.8"
     compile 'com.github.StevenDXC:DxLoadingButton:1.9'
+    compile 'com.prolificinteractive:material-calendarview:1.4.3'
 }
