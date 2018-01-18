@@ -30,6 +30,30 @@ public class Event {
     @Expose
     public Date EnDdate;
 
+    @SerializedName("titre")
+    @Expose
+    public String Titre;
+
+    @SerializedName("description")
+    @Expose
+    public String Description;
+
+    public String getTitre() {
+        return Titre;
+    }
+
+    public void setTitre(String titre) {
+        Titre = titre;
+    }
+
+    public String getDescription() {
+        return Description;
+    }
+
+    public void setDescription(String description) {
+        Description = description;
+    }
+
     public int getId() {
         return Id;
     }

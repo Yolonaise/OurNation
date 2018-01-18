@@ -8,6 +8,7 @@ import com.example.arnaudschaal.ournation.RestClient.Models.ResponseModels.Basic
 import com.example.arnaudschaal.ournation.RestClient.Models.ResponseModels.GetEventsResponse;
 
 import java.io.IOException;
+import java.util.Date;
 
 import retrofit2.Call;
 import retrofit2.Response;
@@ -43,7 +44,7 @@ public class EventsClient extends APIClient {
         }).start();
     }
 
-    public void getEvents(final int creatorId, final String startDate, final String endDate, final int nb) {
+    public void getEvents(final int creatorId, final Date startDate, final Date endDate, final int nb) {
         new Thread(new Runnable() {
 
             @Override

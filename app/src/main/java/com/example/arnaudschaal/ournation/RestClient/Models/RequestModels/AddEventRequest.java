@@ -18,6 +18,28 @@ public class AddEventRequest implements IJSONMessage {
     @SerializedName("endDate")
     @Expose
     public String EndDate;
+    @SerializedName("titre")
+    @Expose
+    public String Titre;
+    @SerializedName("description")
+    @Expose
+    public String Description;
+
+    public String getTitre() {
+        return Titre;
+    }
+
+    public void setTitre(String titre) {
+        Titre = titre;
+    }
+
+    public String getDescription() {
+        return Description;
+    }
+
+    public void setDescription(String description) {
+        Description = description;
+    }
 
     public int getCreatorId() {
         return CreatorId;
