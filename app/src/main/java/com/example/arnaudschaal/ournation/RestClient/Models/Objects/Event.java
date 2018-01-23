@@ -28,7 +28,7 @@ public class Event {
 
     @SerializedName("end_date")
     @Expose
-    public Date EnDdate;
+    public Date EnDate;
 
     @SerializedName("titre")
     @Expose
@@ -86,11 +86,11 @@ public class Event {
         StartDate = startDate;
     }
 
-    public Date getEnDdate() {
-        return EnDdate;
+    public Date getEnDate() {
+        return EnDate;
     }
 
-    public void setEnDdate(Date enDdate) {
-        EnDdate = enDdate;
+    public void setEndate(Date enDate) {
+        EnDate = enDate;
     }
 }

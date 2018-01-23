@@ -12,12 +12,15 @@
     <color name="colorSecondaryLightText">#000000</color>
     <color name="colorSecondaryDarkText">#fff</color>
 
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#ff9d87</color>
 
     <color name="white">#fff</color>
     <color name="black">#000</color>>
     <color name="transparent">#00000000</color>
     <color name="calendarBackground">#66000000</color>
-
+    <color name="calendarBackgroundSummer">#ffe082</color>
+    <color name="calendarBackgroundWinter">#90caf9</color>
+    <color name="calendarBackgroundAutomn">#bcaaa4</color>
+    <color name="calendarBackgroundSpring">#a5d6a7</color>
 
 </resources>
